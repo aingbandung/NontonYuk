@@ -18,6 +18,14 @@
 > [!IMPORTANT]
 > FermataX is free and open source. If you paid for the app through an unofficial website or seller, you may have been scammed.
 
+> [!NOTE]
+> **NontonYuk build of this fork.** Adds a YT Music addon (with the YouTube ad blocking) and is
+> published as `me.app.fermataX.auto.ytm` ("NontonYuk") so it installs next to the official app.
+> Every push to `main` builds a signed universal APK and publishes it under **Releases**.
+> Install it with KingInstaller with the **Shizuku** option ticked (or
+> `adb install -i com.android.vending NontonYuk-universal.apk`); Android Auto only shows the
+> full-screen entry when the installer is recorded as the Play Store.
+
 ## About
 
 FermataX is a GPL-3.0 fork of [Fermata Media Player](https://github.com/AndreyPavlenko/Fermata), customized as a car-friendly media hub for Android Auto.
