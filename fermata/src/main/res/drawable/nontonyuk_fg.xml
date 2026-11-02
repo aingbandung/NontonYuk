@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- NontonYuk ("let's watch"): TV with antennas and a play button -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M54,36 L44,25 M54,36 L64,25" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M35,36 H73 A8,8 0 0 1 81,44 V66 A8,8 0 0 1 73,74 H35 A8,8 0 0 1 27,66 V44 A8,8 0 0 1 35,36 Z M36.0,41.5 H72.0 A3.5,3.5 0 0 1 75.5,45.0 V65.0 A3.5,3.5 0 0 1 72.0,68.5 H36.0 A3.5,3.5 0 0 1 32.5,65.0 V45.0 A3.5,3.5 0 0 1 36.0,41.5 Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M48,47.5 L48,62.5 L61,55 Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M44.75,77 H63.25 A1.75,1.75 0 0 1 65,78.75 V78.75 A1.75,1.75 0 0 1 63.25,80.5 H44.75 A1.75,1.75 0 0 1 43,78.75 V78.75 A1.75,1.75 0 0 1 44.75,77 Z" />
+</vector>

@@ -4,7 +4,7 @@ name: Build APK
 # main, or on demand from the Actions tab, and publishes it as a GitHub Release.
 #
 # Release (not debug) because Android Auto only lists the full-screen app entry for a
-# non-debuggable build. The package is me.app.fermataX.auto.ytm ("fermataX YTM"), so it
+# non-debuggable build. The package is me.app.fermataX.auto.ytm ("NontonYuk"), so it
 # installs next to the official fermataX instead of replacing it.
 #
 # Signing: add repository secrets FERMATAX_KEYSTORE_BASE64 and FERMATAX_KEYSTORE_PASSWORD
@@ -99,13 +99,13 @@ jobs:
             exit 1
           fi
           mkdir -p dist
-          cp "${apks[0]}" dist/FermataX-YTM-universal.apk
+          cp "${apks[0]}" dist/NontonYuk-universal.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: FermataX-YTM-${{ github.run_number }}
-          path: dist/FermataX-YTM-universal.apk
+          name: NontonYuk-${{ github.run_number }}
+          path: dist/NontonYuk-universal.apk
           if-no-files-found: error
           retention-days: 30
 
@@ -113,11 +113,11 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
-          name: fermataX YTM (build ${{ github.run_number }})
+          name: NontonYuk (build ${{ github.run_number }})
           body: |
             Universal release APK for phone and Android Auto, built from ${{ github.sha }}.
             Package me.app.fermataX.auto.ytm, so it installs next to the official fermataX.
             Install with KingInstaller ("Install as King"), force-stop Android Auto, then
-            enable "fermataX YTM" in Android Auto > Customise Launcher.
-          files: dist/FermataX-YTM-universal.apk
+            enable "NontonYuk" in Android Auto > Customise Launcher.
+          files: dist/NontonYuk-universal.apk
           make_latest: true

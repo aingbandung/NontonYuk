@@ -96,7 +96,7 @@ public class AutoManifestPolicyTest {
 	@Test
 	public void carServiceExplicitlyDeclaresLauncherIconAttribution() throws Exception {
 		Document manifest = parse("src/auto/AndroidManifest.xml");
-		Element carService = findNamed(manifest, "service", "me.app.fermatax.auto.CarService");
+		Element carService = findNamed(manifest, "service", "me.app.fermatax.auto.NontonYukCarService");
 		assertNotNull(carService);
 		assertEquals("@drawable/launcher", carService.getAttributeNS(ANDROID_NS, "icon"));
 	}
