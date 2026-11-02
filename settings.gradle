@@ -75,10 +75,13 @@ if (gradle.ext.releaseSigningConfigured) {
     def digest = java.security.MessageDigest.getInstance('SHA-256').digest(certificate.encoded)
     def fingerprint = digest.collect { String.format('%02x', it & 0xff) }.join()
     gradle.ext.releaseSigningFingerprintSha256 = fingerprint
+	// Personal fork builds: FERMATAX_ALLOW_CUSTOM_SIGNING=true accepts the owner's own key.
+	def customSigning = System.getenv('FERMATAX_ALLOW_CUSTOM_SIGNING') == 'true'
 	if ((fingerprint == gradle.ext.legacyUploadCertificateSha256) && !legacyTestSigning) {
 		throw new GradleException('The insecure deterministic legacy upload certificate is not allowed.')
 	}
-	if (!gradle.ext.approvedUploadCertificatesSha256.contains(fingerprint) && !legacyTestSigning) {
+	if (!gradle.ext.approvedUploadCertificatesSha256.contains(fingerprint) && !legacyTestSigning &&
+			!customSigning) {
 		throw new GradleException("Release signing certificate is not approved: ${fingerprint}")
 	}
 }

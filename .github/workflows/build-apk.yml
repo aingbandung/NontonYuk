@@ -1,8 +1,15 @@
 name: Build APK
 
-# Builds the single FermataX universal debug APK (phone + Android Auto) on every push
-# to main, or on demand from the Actions tab, and publishes it as a GitHub Release so it
-# can be downloaded straight to the phone.
+# Builds the single FermataX universal RELEASE APK (phone + Android Auto) on every push to
+# main, or on demand from the Actions tab, and publishes it as a GitHub Release.
+#
+# Release (not debug) because Android Auto only lists the full-screen app entry for a
+# non-debuggable build. The package is me.app.fermataX.auto.ytm ("fermataX YTM"), so it
+# installs next to the official fermataX instead of replacing it.
+#
+# Signing: add repository secrets FERMATAX_KEYSTORE_BASE64 and FERMATAX_KEYSTORE_PASSWORD
+# so every build uses the same key and installs over the previous one. Without them each
+# build is signed with a one-off key (uninstall the previous build first).
 on:
   push:
     branches: [main]
@@ -18,12 +25,12 @@ concurrency:
 jobs:
   apk:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     env:
       NO_GS: true
-      # Optional: base64 of a debug.keystore stored as a repository secret. With it every
-      # build is signed with the same key, so a new APK installs over the previous one.
-      DEBUG_KEYSTORE_BASE64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
+      FERMATAX_ALLOW_CUSTOM_SIGNING: 'true'
+      KEYSTORE_BASE64: ${{ secrets.FERMATAX_KEYSTORE_BASE64 }}
+      KEYSTORE_PASSWORD: ${{ secrets.FERMATAX_KEYSTORE_PASSWORD }}
 
     steps:
       - name: Check out source
@@ -47,18 +54,37 @@ jobs:
       - name: Set up Gradle cache
         uses: gradle/actions/setup-gradle@v6
 
-      - name: Use the stable debug signing key
-        if: ${{ env.DEBUG_KEYSTORE_BASE64 != '' }}
-        run: |
-          mkdir -p ~/.android
-          echo "$DEBUG_KEYSTORE_BASE64" | base64 -d > ~/.android/debug.keystore
-
-      - name: Build universal APK
+      - name: Prepare signing key
         shell: bash
         run: |
           set -euo pipefail
-          chmod +x gradlew build.sh
-          if ! ./build.sh -d > build.log 2>&1; then
+          ks="$RUNNER_TEMP/fermatax-release.jks"
+          if [ -n "$KEYSTORE_BASE64" ] && [ -n "$KEYSTORE_PASSWORD" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > "$ks"
+            pass="$KEYSTORE_PASSWORD"
+          else
+            pass="$(openssl rand -hex 16)"
+            keytool -genkeypair -keystore "$ks" -storetype PKCS12 -storepass "$pass" \
+              -keypass "$pass" -alias fermatax -keyalg RSA -keysize 2048 -validity 10000 \
+              -dname "CN=FermataX YTM, O=Personal build"
+            echo "::warning::No FERMATAX_KEYSTORE_BASE64 secret, signed with a one-off key. Uninstall the previous build before installing this one."
+          fi
+          echo "::add-mask::$pass"
+          {
+            echo "FERMATAX_STORE_FILE=$ks"
+            echo "FERMATAX_STORE_PASSWORD=$pass"
+            echo "FERMATAX_KEY_ALIAS=fermatax"
+            echo "FERMATAX_KEY_PASSWORD=$pass"
+          } >> "$GITHUB_ENV"
+
+      - name: Build universal release APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x gradlew
+          out=fermata/build/outputs/apk_from_bundle
+          if ! ./gradlew verifyWebOnlyProductionGraph fermata:packageAutoReleaseUniversalApk \
+              -PAPP_ID_SFX=.ytm --no-daemon --stacktrace > build.log 2>&1; then
             cat build.log
             # Surface the failure reason as an annotation (readable via the Checks API).
             msg=$( { grep -E "^e: |error:|FAILED" build.log || true; grep -A15 "What went wrong" build.log || tail -50 build.log; } | head -70)
@@ -67,18 +93,19 @@ jobs:
             exit 1
           fi
           cat build.log
-          mapfile -t apks < <(find dist -maxdepth 1 -type f -name 'FermataX-*.apk' -print)
+          mapfile -t apks < <(find "$out" -type f -name 'fermata*.apk' -print)
           if [ "${#apks[@]}" -ne 1 ]; then
             echo "Expected exactly one universal APK, found ${#apks[@]}"
             exit 1
           fi
-          cp "${apks[0]}" dist/FermataX-YTMusic-debug-universal.apk
+          mkdir -p dist
+          cp "${apks[0]}" dist/FermataX-YTM-universal.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: FermataX-YTMusic-${{ github.run_number }}
-          path: dist/FermataX-YTMusic-debug-universal.apk
+          name: FermataX-YTM-${{ github.run_number }}
+          path: dist/FermataX-YTM-universal.apk
           if-no-files-found: error
           retention-days: 30
 
@@ -86,10 +113,11 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
-          name: FermataX + YT Music (build ${{ github.run_number }})
+          name: fermataX YTM (build ${{ github.run_number }})
           body: |
-            Universal debug APK for phone and Android Auto, built from ${{ github.sha }}.
-            Install with KingInstaller ("Install as King"), then enable "Debug fermataX"
-            in Android Auto > Customise Launcher.
-          files: dist/FermataX-YTMusic-debug-universal.apk
+            Universal release APK for phone and Android Auto, built from ${{ github.sha }}.
+            Package me.app.fermataX.auto.ytm, so it installs next to the official fermataX.
+            Install with KingInstaller ("Install as King"), force-stop Android Auto, then
+            enable "fermataX YTM" in Android Auto > Customise Launcher.
+          files: dist/FermataX-YTM-universal.apk
           make_latest: true
