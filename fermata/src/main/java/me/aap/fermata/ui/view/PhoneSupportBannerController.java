@@ -25,7 +25,6 @@ import me.aap.utils.ui.UiUtils;
  */
 public final class PhoneSupportBannerController implements MainActivityListener {
 	private static final String TAG = "PhoneSupportBanner";
-	public static final String DONATE_URL = "https://ko-fi.com/fermatax";
 	public static final long DISPLAY_DURATION_MS = 4000L;
 	public static final long INITIAL_DELAY_MS = 600L;
 	public static final long MIN_RESUME_INTERVAL_MS = 10000L;
@@ -44,7 +43,7 @@ public final class PhoneSupportBannerController implements MainActivityListener 
 		bannerView.setVisibility(GONE);
 		bannerView.setOnClickListener(v -> {
 			dismissInstant();
-			Utils.openUrl(activity.getContext(), DONATE_URL);
+			DonationDialog.show(activity);
 		});
 
 		View closeBtn = bannerView.findViewById(R.id.phone_support_close);

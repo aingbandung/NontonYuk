@@ -392,10 +392,10 @@ public class SettingsFragment extends MainActivityFragment
 				o.csubtitle = "v" + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")";
 			});
 			set.addButton(o -> {
-				o.title = R.string.support_kofi_title;
-				o.subtitle = R.string.support_kofi_sub;
+				o.title = R.string.support_coffee_title;
+				o.subtitle = R.string.support_coffee_sub;
 				o.icon = R.drawable.coffee;
-				o.onClick = () -> Utils.openUrl(ctx, "https://ko-fi.com/fermatax");
+				o.onClick = () -> me.aap.fermata.ui.view.DonationDialog.show(a);
 			});
 		}
 

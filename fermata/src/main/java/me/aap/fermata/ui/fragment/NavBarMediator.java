@@ -52,7 +52,7 @@ import me.aap.utils.ui.view.ScalableTextView;
  */
 public class NavBarMediator extends PrefNavBarMediator
 		implements AddonManager.Listener, OverlayMenu.SelectionHandler {
-	private static final String DONATE_URL = "https://ko-fi.com/fermatax/";
+	// Donations: see DonationDialog (GoPay / ShopeePay / OVO).
 
 	@Override
 	protected List<NavBarItem> getItems(NavBarView nb) {
@@ -291,9 +291,7 @@ public class NavBarMediator extends PrefNavBarMediator
 		if (BuildConfig.AUTO && (item.getItemId() == R.id.nav_donate)) {
 			Context ctx = item.getContext();
 			a = MainActivityDelegate.get(ctx);
-			a.createDialogBuilder().setTitle(R.drawable.coffee, R.string.donate)
-					.setMessage(R.string.donate_text).setNegativeButton(android.R.string.cancel, null)
-					.setPositiveButton(android.R.string.ok, (d, i) -> openUrl(ctx, DONATE_URL)).show();
+			me.aap.fermata.ui.view.DonationDialog.show(a);
 
 			return true;
 		}
