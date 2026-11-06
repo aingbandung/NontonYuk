@@ -594,6 +594,7 @@ public final class SmartTopCoordinator implements AutoCloseable {
 		return switch (id.toLowerCase(java.util.Locale.ROOT)) {
 			case "youtube" -> "YouTube";
 			case "stremio" -> "Stremio";
+			case "vidbox" -> "Vidbox";
 			case "tv" -> "TV";
 			case "radio" -> "Radio";
 			case "podcast" -> "Podcast";

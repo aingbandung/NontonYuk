@@ -15,6 +15,7 @@ public enum AddonCapability {
 	WEB,
 	TIKTOK,
 	YTMUSIC,
+	VIDBOX,
 	CHATGPT,
 	VOICE_SEARCH;
 

@@ -20,6 +20,7 @@ public final class VoiceIntentParser {
 				"xtream", "xtreme", "iptv");
 		alias("radio", "radio", "đài", "dai");
 		alias("stremio", "stremio");
+		alias("vidbox", "vidbox", "vid box");
 		alias("podcast", "podcast", "podcasts");
 		alias("audiobook", "audiobook", "audiobooks", "sách nói", "sach noi");
 		alias("web", "web", "browser", "trình duyệt", "trinh duyet");

@@ -334,6 +334,7 @@ public class GlassAddonsCatalogFragment extends MainActivityFragment implements 
         if (lower.contains("radio")) return 0xFFFF9800;
         if (lower.contains("web")) return 0xFF4CAF50;
         if (lower.contains("tiktok")) return 0xFF00F2FE;
+        if (lower.contains("vidbox")) return 0xFFE50914;
         if (lower.contains("stremio")) return 0xFF7B1FA2;
         if (lower.contains("podcast")) return 0xFFE91E63;
         if (lower.contains("audiobook")) return 0xFFFF5722;

@@ -268,6 +268,7 @@ public class GlassQuickBarManager {
         if ((t.contains("audiobook") || t.contains("sách nói") || t.contains("audio")) && c.contains("audiobook")) return true;
         if (t.contains("stremio") && c.contains("stremio")) return true;
         if (t.contains("tiktok") && c.contains("tiktok")) return true;
+        if (t.contains("vidbox") && c.contains("vidbox")) return true;
         return false;
     }
 

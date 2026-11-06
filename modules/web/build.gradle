@@ -60,6 +60,16 @@ ext {
                     capabilities: 'dashboard,navigation,ytmusic,voice_search',
                     voiceTarget: 'ytmusic',
                     order: 9
+            ],
+            [
+                    name : 'vidbox',
+                    id   : 'vidbox_fragment',
+                    icon : 'vidbox',
+                    class: 'me.aap.fermata.addon.web.vidbox.VidboxAddon',
+                    fragment: true,
+                    capabilities: 'dashboard,navigation,vidbox,voice_search',
+                    voiceTarget: 'vidbox',
+                    order: 10
             ]
     ]
 }

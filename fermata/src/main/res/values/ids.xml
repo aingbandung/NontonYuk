@@ -58,6 +58,7 @@
 	<item name="stremio_fragment" type="id" />
 	<item name="tiktok_fragment" type="id" />
 	<item name="ytmusic_fragment" type="id" />
+	<item name="vidbox_fragment" type="id" />
 	<item name="youtube_fragment" type="id" />
     <item name="web_browser_fragment" type="id" />
     <item name="chat_addon" type="id" />

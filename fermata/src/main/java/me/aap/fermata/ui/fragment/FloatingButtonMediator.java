@@ -105,7 +105,8 @@ public class FloatingButtonMediator implements BackMenu {
 		if (f == null) return false;
 		int id = f.getFragmentId();
 		return (id == R.id.youtube_fragment) || (id == R.id.web_browser_fragment)
-				|| (id == R.id.tiktok_fragment) || (id == R.id.ytmusic_fragment);
+				|| (id == R.id.tiktok_fragment) || (id == R.id.ytmusic_fragment)
+				|| (id == R.id.vidbox_fragment);
 	}
 
 	private boolean isAddFolderEnabled(ActivityFragment f) {
