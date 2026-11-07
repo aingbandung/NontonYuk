@@ -585,11 +585,11 @@
     <string name="about_support">About &amp; Support</string>
     <string name="app_version">Version</string>
     <string name="support_coffee_title" translatable="false">Buy Me a Coffee ☕</string>
-    <string name="support_coffee_sub" translatable="false">GoPay · ShopeePay · OVO: 081227780767</string>
+    <string name="support_coffee_sub" translatable="false">GoPay · ShopeePay · OVO: 081227780676</string>
     <string name="support_coffee_message" translatable="false">Dukung pengembangan NontonYuk dengan traktir kopi lewat GoPay, ShopeePay, atau OVO ke nomor:\n\n%1$s\n\nSupport NontonYuk via GoPay, ShopeePay or OVO. Terima kasih! ☕</string>
     <string name="support_coffee_banner" translatable="false">Suka NontonYuk? Traktir kopi via GoPay / ShopeePay / OVO ☕</string>
     <string name="support_copy_number" translatable="false">Salin nomor</string>
-    <string name="support_number_copied" translatable="false">Nomor 081227780767 disalin</string>
+    <string name="support_number_copied" translatable="false">Nomor 081227780676 disalin</string>
     <string name="support_kofi_title">Buy Me a Coffee ☕</string>
     <string name="support_kofi_sub">Support development at ko-fi.com/fermatax</string>
     <string name="support_banner_text">Enjoying FermataX? Support with a coffee ☕</string>

@@ -12,7 +12,7 @@ import me.aap.fermata.ui.activity.MainActivityDelegate;
 
 /** "Buy me a coffee" via Indonesian e-wallets (GoPay, ShopeePay, OVO). No external links. */
 public final class DonationDialog {
-	public static final String WALLET_NUMBER = "081227780767";
+	public static final String WALLET_NUMBER = "081227780676";
 
 	private DonationDialog() {
 	}

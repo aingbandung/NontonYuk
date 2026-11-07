@@ -13,7 +13,7 @@ public class PhoneSupportBannerControllerTest {
 
 	@Test
 	public void bannerConfigValuesConformToRequirements() {
-		assertEquals("081227780767", DonationDialog.WALLET_NUMBER);
+		assertEquals("081227780676", DonationDialog.WALLET_NUMBER);
 		assertTrue("Duration must be between 3s and 5s",
 				PhoneSupportBannerController.DISPLAY_DURATION_MS >= 3000L &&
 				PhoneSupportBannerController.DISPLAY_DURATION_MS <= 5000L);
